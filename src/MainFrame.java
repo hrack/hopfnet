@@ -5,6 +5,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 
 public class MainFrame extends JFrame {
@@ -19,6 +22,10 @@ public class MainFrame extends JFrame {
 	private JButton btnTrain;
 	private JButton btnRecognise;
 	private JButton btnClear;
+	private JMenuBar menuBar;
+	private JMenu mnFile;
+	private JMenuItem mntmSave;
+	private JMenuItem mntmLoad;
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +53,21 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 632);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new mntmSaveActionListener());
+		mnFile.add(mntmSave);
+		
+		mntmLoad = new JMenuItem("Load");
+		mntmLoad.addActionListener(new mntmLoadActionListener());
+		mnFile.add(mntmLoad);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,17 +80,17 @@ public class MainFrame extends JFrame {
 		
 		btnTrain = new JButton("Train");
 		btnTrain.addActionListener(new BtnTrainActionListener());
-		btnTrain.setBounds(69, 515, 117, 25);
+		btnTrain.setBounds(66, 488, 117, 25);
 		contentPane.add(btnTrain);
 		
 		btnRecognise = new JButton("Recognise");
 		btnRecognise.addActionListener(new BtnRecogniseActionListener());
-		btnRecognise.setBounds(221, 515, 117, 25);
+		btnRecognise.setBounds(217, 488, 117, 25);
 		contentPane.add(btnRecognise);
 		
 		btnClear = new JButton("Clear");
 		btnClear.addActionListener(new BtnClearActionListener());
-		btnClear.setBounds(374, 515, 117, 25);
+		btnClear.setBounds(377, 488, 117, 25);
 		contentPane.add(btnClear);
 	}
 	private class BtnTrainActionListener implements ActionListener {
@@ -82,8 +104,19 @@ public class MainFrame extends JFrame {
 		}
 	}
 	private class BtnClearActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			grid.clear();
+		}
+	}
+	private class mntmLoadActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Image img = Storage.loadImage();
+			grid.setImage(img);
+		}
+	}
+	private class mntmSaveActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Storage.saveImage(grid);
 		}
 	}
 }

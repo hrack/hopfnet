@@ -45,4 +45,9 @@ public class Image {
 			res.img[i] = img[i] == 1 ? 1 : 0;
 		return res;
 	}
+	
+	public void clear() {
+		for(int i = 0; i < img.length; i ++)
+			img[i] = 0;
+	}
 }

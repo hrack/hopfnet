@@ -43,6 +43,10 @@ public class Grid extends JComponent {
 		return columns;
 	}
 	
+	int get(int idx, int idy) {
+		return arr[idx][idy];
+	}
+	
 	private void drawGrid(Graphics g) {
 		g.setColor(Color.black);
 		for(int i=0;i<=rows;i++)
