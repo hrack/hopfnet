@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
 	private HopfieldNetwork net;
 	private JButton btnTrain;
 	private JButton btnRecognise;
+	private JButton btnClear;
 	/**
 	 * Launch the application.
 	 */
@@ -57,13 +58,18 @@ public class MainFrame extends JFrame {
 		
 		btnTrain = new JButton("Train");
 		btnTrain.addActionListener(new BtnTrainActionListener());
-		btnTrain.setBounds(106, 515, 117, 25);
+		btnTrain.setBounds(69, 515, 117, 25);
 		contentPane.add(btnTrain);
 		
 		btnRecognise = new JButton("Recognise");
 		btnRecognise.addActionListener(new BtnRecogniseActionListener());
-		btnRecognise.setBounds(325, 515, 117, 25);
+		btnRecognise.setBounds(221, 515, 117, 25);
 		contentPane.add(btnRecognise);
+		
+		btnClear = new JButton("Clear");
+		btnClear.addActionListener(new BtnClearActionListener());
+		btnClear.setBounds(374, 515, 117, 25);
+		contentPane.add(btnClear);
 	}
 	private class BtnTrainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -73,6 +79,11 @@ public class MainFrame extends JFrame {
 	private class BtnRecogniseActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			grid.setImage(net.recognise(grid.getImage()));
+		}
+	}
+	private class BtnClearActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			grid.clear();
 		}
 	}
 }

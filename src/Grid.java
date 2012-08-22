@@ -101,4 +101,10 @@ public class Grid extends JComponent {
 		}
 	}
 	
+	public void clear() {
+		for(int i = 0; i < rows; i ++)
+			for(int j = 0; j < columns; j ++)
+				setCell(i, j, 0, getGraphics());
+	}
+	
 }
