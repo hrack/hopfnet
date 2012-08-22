@@ -38,7 +38,7 @@ public class HopfieldNetwork {
 				int v = order[j];
 				ans.set(v, 0);
 				for(int i=0;i<n;i++)
-					ans.set(v, w[i][v]*ans.get(i));
+					ans.set(v, w[i][v]*ans.get(i)+ans.get(v));
 				
 				if(ans.get(v) > 0) 
 					ans.setUpperState(v);
