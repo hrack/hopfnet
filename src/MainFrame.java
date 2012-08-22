@@ -67,12 +67,12 @@ public class MainFrame extends JFrame {
 	}
 	private class BtnTrainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			net.train(grid.getArray());
+			net.train(grid.getImage());
 		}
 	}
 	private class BtnRecogniseActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			grid.setArray(net.recognise(grid.getArray()));
+			grid.setImage(net.recognise(grid.getImage()));
 		}
 	}
 }

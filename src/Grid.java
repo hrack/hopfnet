@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 
 public class Grid extends JComponent {	
@@ -77,18 +76,18 @@ public class Grid extends JComponent {
 		g.fillRect(stx, sty, width-1 , height-1);
 	}
 	
-	public int[] getArray() {
-		int[] ans = new int[rows*columns];
+	public Image getImage() {
+		Image ans = new Image(rows*columns);
 		for(int i=0;i<rows;i++)
 			for(int j=0;j<columns;j++)
-				ans[i*rows+j] = arr[i][j];
+				ans.set(i*rows+j, arr[i][j]);
 		return ans;
 	}
 	
-	public void setArray(int[] array) {
+	public void setImage(Image image) {
 		for(int i=0;i<rows;i++)
 			for(int j=0;j<columns;j++)
-				setCell(i, j, array[i*rows+j], getGraphics());
+				setCell(i, j, image.get(i*rows+j), getGraphics());
 	}
 	
 	private class GridMouseListner extends MouseAdapter {
