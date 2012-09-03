@@ -23,7 +23,7 @@ public class HopfieldNetwork {
 	}
 	
 	Image recognise(Image image) {		
-		Image ans = new Image(n);
+		Image ans = new Image(image.getRowsCount(), image.getColumnsCount());
 		int[] order = new int[n];
 		for(int i=0;i<n;i++) {
 			ans.set(i, image.get(i));
@@ -41,9 +41,9 @@ public class HopfieldNetwork {
 					ans.set(v, w[i][v]*ans.get(i)+ans.get(v));
 				
 				if(ans.get(v) > 0) 
-					ans.setUpperState(v);
+					ans.setToUpperState(v);
 				else 
-					ans.setLowerState(v);
+					ans.setToLowerState(v);
 			}
 			cur++;
 		}

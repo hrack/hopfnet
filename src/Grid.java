@@ -15,16 +15,13 @@ public class Grid extends JComponent {
 	private int columns;
 	private int height;
 	private int width;
-	private int[][] arr;
-		
+	private Image img;
+	
 	public Grid(int rowsCnt, int columnsCnt) {
 		rows = rowsCnt;
 		columns = columnsCnt;
 		addMouseListener(new GridMouseListner());
-		arr = new int[rows][columns];
-		for(int i=0;i<rows;i++)
-			for(int j=0;j<columns;j++)
-				arr[i][j] = Image.LOWER_STATE;
+		img = new Image(rows, columns);
 	}
 
 	@Override 
@@ -43,8 +40,8 @@ public class Grid extends JComponent {
 		return columns;
 	}
 	
-	int get(int idx, int idy) {
-		return arr[idx][idy];
+	int get(int row, int column) {
+		return img.get(row, column);
 	}
 	
 	private void drawGrid(Graphics g) {
@@ -56,18 +53,19 @@ public class Grid extends JComponent {
 		
 		for(int i=0;i<rows;i++)
 			for(int j=0;j<columns;j++)
-				setCell(i, j, arr[i][j], g);
+				setCell(i, j, img.get(i, j), g);
 	}
 	
 	private void invertCell(int i, int j) {
-		 if(arr[i][j] == Image.UPPER_STATE)
-			setCell(i, j, Image.LOWER_STATE, getGraphics());
+		 img.invert(i, j);
+		 if(img.isSetToUpperState(i, j))
+			setCell(i, j, img.get(i, j), getGraphics());
 		else
-			setCell(i, j, Image.UPPER_STATE, getGraphics());
+			setCell(i, j, img.get(i, j), getGraphics());
 	}
 	
 	private void setCell(int i, int j, int c, Graphics g) {
-		arr[i][j] = c;
+		img.set(i, j, c);
 		int stx = j*width + 1;
 		int sty = i*height + 1;
 		if(c == 1) {
@@ -81,10 +79,10 @@ public class Grid extends JComponent {
 	}
 	
 	public Image getImage() {
-		Image ans = new Image(rows*columns);
+		Image ans = new Image(rows, columns);
 		for(int i=0;i<rows;i++)
 			for(int j=0;j<columns;j++)
-				ans.set(i*rows+j, arr[i][j]);
+				ans.set(i*rows+j, img.get(i, j));
 		return ans;
 	}
 	

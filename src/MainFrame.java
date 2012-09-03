@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
 	private JMenu mnFile;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmLoad;
+	private Storage storage;
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +50,7 @@ public class MainFrame extends JFrame {
 		initialize();
 		if(grid != null)
 			net = new HopfieldNetwork(grid.getRows()*grid.getColumns());
+		storage = new Storage();
 	}
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,13 +112,13 @@ public class MainFrame extends JFrame {
 	}
 	private class mntmLoadActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Image img = Storage.loadImage();
+			Image img = storage.loadImage();
 			grid.setImage(img);
 		}
 	}
 	private class mntmSaveActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Storage.saveImage(grid);
+			storage.saveImage(grid.getImage());
 		}
 	}
 }

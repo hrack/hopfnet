@@ -9,28 +9,26 @@ import javax.swing.filechooser.FileFilter;
 
 public class Storage {
 	
-	static FileFilter ff1 = new FileFilter() {
+	FileFilter ff1 = new FileFilter() {
 		
 		@Override
 		public String getDescription() {
-			// TODO Auto-generated method stub
 			return "*.txt";
 		}
 		
 		@Override
 		public boolean accept(File f) {
-			// TODO Auto-generated method stub
 			return (f.getName().endsWith(".txt"));
 		}
 	};
 	
-	public static Image loadImage() {
+	public  Image loadImage() {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new File("."));
 		fc.setFileFilter(ff1);
 		fc.showOpenDialog(null);
 		File f = fc.getSelectedFile();
-		Image img = new Image(6*6);
+		Image img = new Image(6, 6);
 		if (f == null)
 			return img;
 		try {
@@ -38,7 +36,7 @@ public class Storage {
 			String str, all = new String("");
 			while (sc.hasNext()) {
 				str = sc.next();
-				if (str.length() != 6) //»«Ã≈Õ»“‹ Õ¿  ŒÕ—“¿Õ“”
+				if (str.length() != 6) 
 					break;
 				all += str;
 			}
@@ -54,12 +52,12 @@ public class Storage {
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return img;
 	}
 	
-	public static void saveImage(Grid grid) {
+	public  void saveImage(Image img) {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new File("."));
 		fc.setFileFilter(ff1);
@@ -75,15 +73,15 @@ public class Storage {
 			else
 				f.createNewFile();
 			PrintWriter pw = new PrintWriter(f);
-			for(int i = 0; i < grid.getRows(); i ++) {
-				for(int j = 0; j < grid.getColumns(); j ++)
-					pw.print(grid.get(i, j));
+			for(int i = 0; i < img.getRowsCount(); i ++) {
+				for(int j = 0; j < img.getColumnsCount(); j ++)
+					pw.print(img.get(i, j));
 				pw.println();
 			}
 			pw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }
