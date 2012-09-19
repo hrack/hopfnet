@@ -27,6 +27,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem mntmSave;
 	private JMenuItem mntmLoad;
 	private Storage storage;
+	private JButton btnStep;
 	/**
 	 * Launch the application.
 	 */
@@ -82,18 +83,23 @@ public class MainFrame extends JFrame {
 		
 		btnTrain = new JButton("Train");
 		btnTrain.addActionListener(new BtnTrainActionListener());
-		btnTrain.setBounds(66, 488, 117, 25);
+		btnTrain.setBounds(56, 488, 100, 25);
 		contentPane.add(btnTrain);
 		
 		btnRecognise = new JButton("Recognise");
 		btnRecognise.addActionListener(new BtnRecogniseActionListener());
-		btnRecognise.setBounds(217, 488, 117, 25);
+		btnRecognise.setBounds(171, 488, 100, 25);
 		contentPane.add(btnRecognise);
 		
 		btnClear = new JButton("Clear");
 		btnClear.addActionListener(new BtnClearActionListener());
-		btnClear.setBounds(377, 488, 117, 25);
+		btnClear.setBounds(284, 488, 100, 25);
 		contentPane.add(btnClear);
+		
+		btnStep = new JButton("Next Step");
+		btnStep.addActionListener(new BtnStepActionListener());
+		btnStep.setBounds(402, 488, 100, 25);
+		contentPane.add(btnStep);
 	}
 	private class BtnTrainActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -119,6 +125,11 @@ public class MainFrame extends JFrame {
 	private class mntmSaveActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			storage.saveImage(grid.getImage());
+		}
+	}
+	private class BtnStepActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			grid.setImage(net.step(grid.getImage()));
 		}
 	}
 }
