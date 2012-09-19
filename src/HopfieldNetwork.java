@@ -29,25 +29,35 @@ public class HopfieldNetwork {
 	}
 	
 	Image step(Image image) {
+		image = image.toBipolar();
 		Image ans = new Image(image.getRowsCount(), image.getColumnsCount());
 		for(int i=0;i<n;i++)
 			ans.set(i, image.get(i));
+		image = image.toBipolar();
 		ans = ans.toBipolar();
-		if (pos >= n) {
+		boolean flag = true;
+		int curr = 0;
+		while (flag && curr < 1000) {
+			if (pos >= n) {
+				for(int i = 0; i < n; i ++)
+					order[i] = i;
+				Collections.shuffle(Arrays.asList(order));
+				pos = 0;
+			}
+			int v = order[pos];
+			ans.set(v, 0);
+			for(int i=0;i<n;i++)
+				ans.set(v, w[i][v]*ans.get(i)+ans.get(v));
+			if(ans.get(v) > 0) 
+				ans.setToUpperState(v);
+			else 
+				ans.setToLowerState(v);
+			pos ++;
 			for(int i = 0; i < n; i ++)
-				order[i] = i;
-			Collections.shuffle(Arrays.asList(order));
-			pos = 0;
+				if (ans.get(i) != image.get(i))
+					flag = false;
+			curr ++;
 		}
-		int v = order[pos];
-		ans.set(v, 0);
-		for(int i=0;i<n;i++)
-			ans.set(v, w[i][v]*ans.get(i)+ans.get(v));
-		if(ans.get(v) > 0) 
-			ans.setToUpperState(v);
-		else 
-			ans.setToLowerState(v);
-		pos ++;
 		return ans.toUnipolar();
 	}
 	
